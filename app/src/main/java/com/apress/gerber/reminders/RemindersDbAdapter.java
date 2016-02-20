@@ -45,7 +45,7 @@ public class RemindersDbAdapter {
                                                             COL_IMPORTANT + " INTEGER );";
 
     public RemindersDbAdapter(Context ctx){
-        this.mctx = ctx;
+        this.mCtx = ctx;
     }
 
     public void open() throws SQLException{
@@ -71,21 +71,21 @@ public class RemindersDbAdapter {
     public long CreateReminder(Reminder reminder){
 
         ContentValues values = new ContentValues();
-        values.put(COL_CONTENT,remider.getContent());
-        values.put(COL_IMPORTANT, remider.getImportant());
+        values.put(COL_CONTENT,reminder.getmContent());
+        values.put(COL_IMPORTANT, reminder.getmImportant());
 
         return mDb.insert(TABLE_NAME,null,values);
     }
 
     public Reminder fetchReminderById(int id){
 
-        Cursor cursor = mDb.query(TABLE_NAME,new String[]{COL_ID, COL_CONTENT,COL_IMPORTANT}, COL_ID + "=?",new String[]{String.valuof(id), nullm null, null,null});
+        Cursor cursor = mDb.query(TABLE_NAME,new String[]{COL_ID, COL_CONTENT,COL_IMPORTANT}, COL_ID + "=?",new String[]{String.valueOf(id)}, null, null, null,null);
 
         if (cursor != null){
             cursor.moveToFirst();
-            return new Reminder(cursor.getInt(INDEX_ID), cursor.getString(INDEX_ID), cursor.getInt(INDEX_IMPORTANT));
-        }
 
+        }
+        return new Reminder(cursor.getInt(INDEX_ID), cursor.getString(INDEX_ID), cursor.getInt(INDEX_IMPORTANT));
     }
 
     public Cursor fetchAllReminder(){
@@ -102,14 +102,14 @@ public class RemindersDbAdapter {
         ContentValues values = new ContentValues();
         values.put(COL_CONTENT,reminder.getmContent());
         values.put(COL_IMPORTANT, reminder.getmImportant());
-        mDb.update(TABLE_NAME, values, COL_ID + "=?", new String[]{String.valueOf(nID)});
+        mDb.update(TABLE_NAME, values, COL_ID + "=?", new String[]{String.valueOf(reminder.getmId())});
 
     }
 
     //DELETE
     public void deleteReminderById(int nId){
 
-        mDb.delete(TABLE_NAME,COL_ID, "=?", new String[]{String.valueof(nId)});
+        mDb.delete(TABLE_NAME,COL_ID+ "=?", new String[]{String.valueOf(nId)});
 
     }
 
