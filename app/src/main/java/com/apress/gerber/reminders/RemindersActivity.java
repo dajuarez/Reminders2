@@ -1,8 +1,10 @@
 package com.apress.gerber.reminders;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,8 +14,14 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class RemindersActivity extends AppCompatActivity {
-private ListView mListView;
+import java.sql.SQLException;
+
+public class RemindersActivity extends ActionBarActivity {
+    private ListView mListView;
+    private RemindersDbAdapter mDbAdapter;
+    private RemindersSimpleCursorAdapter mCursorAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +32,28 @@ private ListView mListView;
 
         mListView = (ListView) findViewById(R.id.reminders_list_View);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.reminders_row,R.id.row_text, new String[]{"first record","second record","third record"});
-        mListView.setAdapter(arrayAdapter);
+        mListView.setDivider(null);
+
+        mDbAdapter = new RemindersDbAdapter(this);
+        try {
+            mDbAdapter.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Cursor cursor = mDbAdapter.fetchAllReminder();
+
+        String[] from = new String[] {
+                RemindersDbAdapter.COL_CONTENT
+        };
+
+        int[] to = new int[] {
+                R.id.row_text
+        };
+
+        mCursorAdapter = new RemindersSimpleCursorAdapter(RemindersActivity.this,R.layout.reminders_row,cursor,from, to, 0);
+
+        mListView.setAdapter(mCursorAdapter);
 
         //fin del codigo
         /*--------------------------------------------------------------*/
