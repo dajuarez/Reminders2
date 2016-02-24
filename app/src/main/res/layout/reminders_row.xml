@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:weightSum="1"
-    android:orientation="vertical"
-    android:background="@color/dark_grey">
+    android:background="@color/dark_grey"
+    android:orientation="vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -31,6 +31,9 @@
             android:padding="10dp"
             android:ellipsize="end"
             android:maxLines="1"
-/>
+            android:descendantFocusability="blocksDescendants"
+
+            android:clickable="true"
+            android:enabled="false" />
     </LinearLayout>
 </LinearLayout>

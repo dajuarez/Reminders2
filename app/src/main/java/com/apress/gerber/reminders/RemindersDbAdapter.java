@@ -113,7 +113,7 @@ public class RemindersDbAdapter {
 
     }
 
-    public void deleteAllRemider(){
+    public void deleteAllReminders(){
         mDb.delete(TABLE_NAME,null,null);
 
     }

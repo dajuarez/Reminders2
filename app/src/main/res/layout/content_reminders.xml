@@ -13,13 +13,16 @@
     tools:context="com.apress.gerber.reminders.RemindersActivity"
     tools:showIn="@layout/activity_reminders">
 
+
     <ListView
-        android:layout_width="match_parent"
+          android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reminders_list_View"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        tools:listitem="@layout/reminders_row"/>
+
+                tools:listitem="@layout/reminders_row"
+        android:clickable="false" />
 </RelativeLayout>
